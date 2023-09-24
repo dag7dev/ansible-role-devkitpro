@@ -64,4 +64,4 @@ MIT / BSD
 Author Information
 ------------------
 
-This role was created in 2023 by Damiano Gualandri, author of [awesome stuff](github.com/dag7dev).
+This role was created in 2023 by Damiano Gualandri, author of [awesome stuff](https://github.com/dag7dev).
