@@ -1,0 +1,67 @@
+---
+# tasks file for devkitpro
+- name: Install ca-certificates
+  apt:
+    update_cache: yes
+    state: latest
+    name:
+      - "ca-certificates"
+
+- name: Check if pip3 command exists
+  command: "which pip3"
+  register: pip3_command_check
+  ignore_errors: true
+
+- name: Install pip
+  apt:
+    name:
+      - python3-pip
+  when: pip3_command_check.rc != 0
+      
+- name: Install pexpect
+  pip:
+    name: pexpect
+
+- name: Print devkit platforms enabled
+  ansible.builtin.debug:
+    msg: Platforms enabled {{ platforms_enabled }} 
+
+- name: Check if dkp-pacman command exists
+  command: "which dkp-pacman"
+  register: command_check
+  ignore_errors: true
+
+- name: Create /tmp directory
+  file:
+    path: /tmp 
+    state: directory
+  when: command_check.rc != 0
+
+- name: Get installation script
+  get_url:
+    url: https://apt.devkitpro.org/install-devkitpro-pacman 
+    dest: /tmp/install-devkitpro-pacman
+    mode: '+x'
+  when: command_check.rc != 0
+
+- name: Install devkitpro-pacman
+  shell: yes | /tmp/install-devkitpro-pacman
+  when: command_check.rc != 0
+
+- name: Check if dkp-pacman command exists
+  command: "which dkp-pacman"
+  register: command_check
+  ignore_errors: true
+
+- name: Update dkp-pacman packages
+  shell: yes |  
+  when: command_check.rc == 0
+
+- name: Install specified platform devkit {{ item }}
+  expect:
+    command: dkp-pacman -S --noconfirm {{ item }}-dev
+    responses:
+      ".*default*": "all\r"
+      ".*[Y/n].*": "Y\r"
+  loop: "{{ platforms_enabled }}"
+  when: command_check.rc == 0

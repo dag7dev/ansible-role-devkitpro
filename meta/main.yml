@@ -1,0 +1,27 @@
+galaxy_info:
+  author: dag7
+  company: "Dag7 Inc."
+  description: Devkitpro for Linux.
+  role_name: devkitpro
+  license: license (BSD, MIT)
+
+  min_ansible_version: 2.10
+  platforms:
+    - name: Amazon
+      versions:
+        - all
+    - name: Debian
+      versions:
+        - all
+    - name: Ubuntu
+      versions:
+        - bionic
+        - jammy
+
+
+  galaxy_tags:
+    - devkit
+    - homebrew
+    - console
+
+allow_duplicates: true

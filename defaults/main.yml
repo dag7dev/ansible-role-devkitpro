@@ -1,0 +1,12 @@
+---
+# defaults file for devkitpro-nds
+platforms_enabled:
+  - gp2x
+  # - gp32
+  # - gba 
+  # - nds
+  # - 3ds
+  # - gamecube
+  # - wii
+  # - wiiu
+  # - switch
