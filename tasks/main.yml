@@ -2,7 +2,6 @@
 # tasks file for devkitpro
 - name: Install ca-certificates
   apt:
-    update_cache: yes
     state: latest
     name:
       - "ca-certificates"
@@ -54,10 +53,10 @@
   ignore_errors: true
 
 - name: Update dkp-pacman packages
-  shell: yes |  
+  shell: yes | dkp-pacman -Syu
   when: command_check.rc == 0
 
-- name: Install specified platform devkit {{ item }}
+- name: Install specified platform devkit
   expect:
     command: dkp-pacman -S --noconfirm {{ item }}-dev
     responses:
