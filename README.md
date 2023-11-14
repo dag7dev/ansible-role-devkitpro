@@ -44,7 +44,7 @@ Example Playbook
   vars_files:
     - vars/main.yml
   roles:
-    - { role: dag7dev.devkitpro }
+    - dag7dev.devkitpro
 ```
 
 Inside vars/main.yml:
